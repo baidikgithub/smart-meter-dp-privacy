@@ -1,4 +1,5 @@
 Protecting Smart Meter Data Using Differential Privacy
+
 Overview
 This project applies Differential Privacy techniques using AI to protect sensitive details in smart meter electricity consumption data, especially for industrial settings. By adding controlled noise in the machine learning training process, the solution balances privacy protection with preserving meaningful energy usage trends.
 
