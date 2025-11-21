@@ -114,8 +114,9 @@ START
 
 STOP
 
-![Evaluation using Mean Absolute Error(MAE)
+![Flow Chart of the Implementation process
 ](images/flowchart.png)
+Fig: Flow Chart of the Implementation process
 
 Result and Discussion:
 
@@ -136,11 +137,14 @@ Noisy = 0.4918
 
 ![Plotted a comparison graph showing original vs. noise-added t_kWh values
 ](images/Comparison.png)
+Fig: Plotted a comparison graph showing original vs. noise-added t_kWh values
 
 ![Higher noise multipliers introduce larger errors, confirming the trade-off between privacy strength and data accuracy.
 ](images/mse.png)
+Fig: Higher noise multipliers introduce larger errors, confirming the trade-off between privacy strength and data accuracy.
 
 ![Evaluation using Mean Absolute Error(MAE)
 ](images/mae.png)
+Fig: Evaluation using Mean Absolute Error(MAE)
 
 
