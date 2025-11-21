@@ -14,19 +14,31 @@ Features
 Implementation Details
 
 1. Data Collection & Processing
+   
 ●	Load datasets (Kaggle, CEEW Bareilly 2020 Smart Meter Data).
+
 ●	Imported core libraries (os, pandas, numpy) for structured data processing.
+
 ●	Sorted timestamp fields to maintain proper temporal order.
 
 2.  Privacy-Preserving Model
+   
 ●	Develop a Neural Network Autoencoder integrated with Differential Privacy (DP-SGD).
+
 ●	For each training batch:
+
     ○ Compute gradients.
+    
     ○ Clip gradients to limit the influence of individual readings.
+    
     ○ Add Gaussian noise to preserve privacy.
+    
 ●	Added two AI-aligned noise tracking features:
+
     ○ t_kWh_noisy → the DP consumption value.
+    
     ○ t_kWh_noise_added → the exact injected noise for transparency and auditability.
+    
 ●	The system outputs a rich CSV containing:
     ● original t_kWh
     ● noisy t_kWh
@@ -35,8 +47,11 @@ Implementation Details
     ● noise multiplier
 
 3.  Testing and Evaluation
+   
 ●	Final Comparison Test: Compare anomaly detection and accuracy with the baseline.
+
 ●	Key metrics: Mean Absolute Error (MAE), Mean Squared Error (MSE), Root Mean Squared Error (RMSE).
+
 ●	Plot privacy-utility tradeoff graphs.
 
 
@@ -47,32 +62,50 @@ START
 1. Read the raw smart meter dataset D.
 
 2. Preprocess the dataset:
+   
    a. Normalize column names.
+   
    b. Convert timestamp field to datetime format.
+   
    c. Sort readings in chronological order.
+   
    d. Group the dataset into blocks of k datapoints each.
+   
       For each group:
+   
          t_kWh_original = SUM(t_kWh of all k datapoints)
 
 3. Prepare input features for training the autoencoder (AE).
 
 4. Train the Autoencoder using Differentially Private SGD (DP-SGD):
+   
    a. Set gradient clipping norm C.
+   
    b. For each training batch:
+   
       i.   Compute per-sample gradients g_i.
+   
       ii.  Clip gradients: g_i = g_i / max(1, ||g_i|| / C)
+   
       iii. Add Gaussian noise: g_noisy = g_i + N(0, (σ * C)^2)
+   
       iv.  Update AE model parameters using g_noisy.
+   
    c. Use privacy accountant to compute privacy budget ε.
 
 5. For each noise multiplier σ in σ_list:
+   
    a. Set noise sensitivity S.
+   
    b. For each grouped datapoint:
+   
       i. Generate Gaussian noise: noise_value = N(0, (σ * S)^2)
+   
       ii. Compute noisy energy value: t_kWh_noisy = t_kWh_original + noise_value
+   
       iii. Compute absolute deviation: abs_error = |t_kWh_original - t_kWh_noisy|
 
-6. Store results:
+7. Store results:
    - t_kWh_original
    - t_kWh_noisy
    - noise_value
