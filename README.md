@@ -40,6 +40,7 @@ Implementation Details
     ○ t_kWh_noise_added → the exact injected noise for transparency and auditability.
     
 ●	The system outputs a rich CSV containing:
+
     ● original t_kWh
     ● noisy t_kWh
     ● added noise
